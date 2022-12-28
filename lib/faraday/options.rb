@@ -53,13 +53,13 @@ module Faraday
     end
 
     # Public
-    def fetch(key, *args)
+    def fetch(key, *args, &block)
       unless symbolized_key_set.include?(key.to_sym)
         key_setter = "#{key}="
         if args.size > 0
           send(key_setter, args.first)
-        elsif block_given?
-          send(key_setter, Proc.new.call(key))
+        elsif block
+          send(key_setter, block.call(key))
         else
           raise self.class.fetch_error_class, "key not found: #{key.inspect}"
         end
@@ -149,8 +149,8 @@ module Faraday
       @attribute_options ||= {}
     end
 
-    def self.memoized(key)
-      memoized_attributes[key.to_sym] = Proc.new
+    def self.memoized(key, &block)
+      memoized_attributes[key.to_sym] = block
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def #{key}() self[:#{key}]; end
       RUBY

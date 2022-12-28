@@ -14,13 +14,14 @@ group :test do
   gem 'httpclient', '>= 2.2'
   gem 'mime-types', '~> 1.25', :platforms => [:jruby, :ruby_18]
   gem 'minitest', '>= 5.0.5'
-  gem 'net-http-persistent', '>= 2.9.4'
+  gem 'net-http-persistent', ['>= 2.9.4', '< 3.0.0']
   gem 'patron', '>= 0.4.2', :platforms => :ruby
   gem 'rack-test', '>= 0.6', :require => 'rack/test'
   gem 'rest-client', '~> 1.6.0', :platforms => [:jruby, :ruby_18]
   gem 'simplecov'
   gem 'sinatra', '~> 1.3'
   gem 'typhoeus', '~> 0.3.3', :platforms => [:ruby_18, :ruby_19, :ruby_20, :ruby_21]
+  gem 'webrick'
 end
 
 gemspec

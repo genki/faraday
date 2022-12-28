@@ -187,11 +187,11 @@ module Faraday
 
         def running?() @running end
 
-        def add
+        def add(&block)
           if running?
-            perform_request { yield }
+            perform_request &block
           else
-            @registered_procs << Proc.new
+            @registered_procs << block
           end
           @num_registered += 1
         end

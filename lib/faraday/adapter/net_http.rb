@@ -10,18 +10,21 @@ module Faraday
   class Adapter
     class NetHttp < Faraday::Adapter
       NET_HTTP_EXCEPTIONS = [
-        EOFError,
+        IOError,
+        Errno::EADDRNOTAVAIL,
+        Errno::EALREADY,
         Errno::ECONNABORTED,
         Errno::ECONNREFUSED,
         Errno::ECONNRESET,
         Errno::EHOSTUNREACH,
         Errno::EINVAL,
         Errno::ENETUNREACH,
+        Errno::EPIPE,
         Net::HTTPBadResponse,
         Net::HTTPHeaderSyntaxError,
         Net::ProtocolError,
         SocketError,
-        Zlib::GzipFile::Error,
+        Zlib::GzipFile::Error
       ]
 
       NET_HTTP_EXCEPTIONS << OpenSSL::SSL::SSLError if defined?(OpenSSL)
